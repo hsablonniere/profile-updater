@@ -3,7 +3,7 @@
 *profile-updater* is a simple bot.
 It's designed to automatically update your Twitter profile using a predefined schedule.
 
-This bot was created to automate an idea I got from https://twitter.com/dkundel[@dkundel]: adding a suffix on your Twitter profile name when you speak at conference.
+This bot was created to automate an idea I got from https://twitter.com/dkundel[@dkundel] (who got it from https://twitter.com/jna_sh[@jna_sh]): adding a suffix on your Twitter profile name when you speak at conference.
 Something like this: "John SMITH 🗣 AwesomeConf2018".
 
 == How to run it?

@@ -1,0 +1,3 @@
+[
+    "*/5 * * * * $ROOT/clevercloud/profile-updater-cron.sh"
+]

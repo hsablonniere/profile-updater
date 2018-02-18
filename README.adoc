@@ -1,0 +1,105 @@
+= profile-updater
+
+*profile-updater* is a simple bot.
+It's designed to automatically update your Twitter profile using a predefined schedule.
+
+This bot was created to automate an idea I got from https://twitter.com/dkundel[@dkundel]: adding a suffix on your Twitter profile name when you speak at conference.
+Something like this: "John SMITH 🗣 AwesomeConf2018".
+
+== How to run it?
+
+Set the environment variables and run the bot with:
+
+```
+node src/profile-updater.js
+```
+
+The script is designed to run only once but you should run it periodically with cron (or something else).
+
+NOTE: If you want to deploy this bot on Clever Cloud, there's already a `clevercloud/cron.json` file where you can tune the periodicity.
+
+=== Environment variables
+
+==== `DATASOURCE`
+
+Each time the bot is running, it fetches a JSON file to get the different scheduled profile updates.
+This `DATASOURCE` variable is used to specify the URL to the JSON file.
+This file must be publicly accessible on the Web.
+One good and simple solution for is to use a private GitHub gist.
+
+Example: `https://gist.github.com/jsmith/0123456789abcdef0123456789abcdef/raw/profile-updater.json`
+
+Here's an example of this JSON file:
+
+```json
+{
+    "defaultTimezone": "Europe/Paris",
+    "defaultProfile": {
+        "name": "John SMITH"
+    },
+    "scheduledProfiles": [
+        {
+            "from": "2018-03-01 07:00",
+            "to": "2018-03-03 20:59",
+            "profile": {
+                "name": "John SMITH 🗣 AwesomeConf2018"
+            }
+        },
+        {
+            "from": "2018-05-20 08:00",
+            "to": "2018-02-21 19:59",
+            "timezone": "Asia/Tokyo",
+            "profile": {
+                "name": "John SMITH 🗣 NotSoBadConf2018",
+                "location": "Tokyo, Japan"
+            }
+        }
+    ]
+}
+```
+
+* By default, the bot will use the `defaultTimezone` but you set a specific `timezone` for each scheduled profile.
+* `from` and `to` follow this format `YYYY-MM-DD HH:mm:ss` but you can be less specific. +
+Here are some valid examples.
+** `"from": "2018-03-04 22:51:12"`
+** `"from": "2018-03-04 22"` (will be the same as "2018-03-04 22:00:00")
+** `"from": "2018-03"` (will be the same as "2018-03-01 00:00:00")
+* The profile object will be directly posted to the Twitter API so you can specify all the params it accepts. +
+More details here: https://developer.twitter.com/en/docs/accounts-and-users/manage-account-settings/api-reference/post-account-update_profile
+
+[NOTE]
+This BOT does not schedule the profile updates at the very specific datetimes you set.
+It just checks if the current datetime matches one (and only one) of your scheduled profiles.
+*You* are responsible to call this bot as frequently as you want it to be accurate.
+
+==== `TWITTER_CONSUMER_KEY`
+
+Here you can set your Twitter consumer key.
+
+You'll need to create a Twitter app for this, more details here: https://apps.twitter.com/.
+You can find this key in the "Keys and Access Tokens" tab and then in the "Application Settings" group.
+
+==== `TWITTER_CONSUMER_SECRET`
+
+Here you can set your Twitter consumer secret.
+
+You'll need to create a Twitter app for this, more details here: https://apps.twitter.com/.
+You can find this secret in the "Keys and Access Tokens" tab and then in the "Application Settings" group.
+
+==== `TWITTER_ACCESS_TOKEN_KEY`
+
+Here you can set your Twitter access token.
+
+You'll need to create a Twitter app for this, more details here: https://apps.twitter.com/.
+You can find this key in the "Keys and Access Tokens" tab and then in the "Your Access Token" group.
+
+==== `TWITTER_ACCESS_TOKEN_SECRET`
+
+Here you can set your Twitter access token secret key.
+
+You'll need to create a Twitter app for this, more details here: https://apps.twitter.com/.
+You can find this secret in the "Keys and Access Tokens" tab and then in the "Your Access Token" group.
+
+== How to contribute?
+
+Well, this project seems good as it is for me so not much details here but feel free to file an issue if you have any questions.

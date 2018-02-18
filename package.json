@@ -1,0 +1,24 @@
+{
+  "name": "profile-updater",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "engines": {
+    "node": "^9"
+  },
+  "dependencies": {
+    "convict": "^4.0.2",
+    "lodash": "^4.17.5",
+    "moment-timezone": "^0.5.14",
+    "request": "^2.83.0",
+    "twitter": "^1.7.1",
+    "winston": "^2.4.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "dirty-chai": "^2.0.1",
+    "mocha": "^5.0.1"
+  }
+}
